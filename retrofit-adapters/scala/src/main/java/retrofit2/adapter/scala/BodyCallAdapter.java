@@ -24,6 +24,7 @@ import retrofit2.HttpException;
 import retrofit2.Response;
 import scala.concurrent.Future;
 import scala.concurrent.Promise;
+import scala.concurrent.Promise$;
 
 final class BodyCallAdapter<T> implements CallAdapter<T, Future<T>> {
   private final Type responseType;
@@ -37,7 +38,7 @@ final class BodyCallAdapter<T> implements CallAdapter<T, Future<T>> {
   }
 
   @Override public Future<T> adapt(@Nonnull Call<T> call) {
-    Promise<T> promise = Promise.apply();
+    Promise<T> promise = Promise$.MODULE$.apply();
 
     call.enqueue(new Callback<T>() {
       @Override public void onResponse(@Nonnull Call<T> call, @Nonnull Response<T> response) {
